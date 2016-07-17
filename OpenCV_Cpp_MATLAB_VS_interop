@@ -10,6 +10,7 @@
 #include <iostream>
 #include "engine.h"  // MATLAB Engine Header File required for building in Visual Studio 
 #include "mex.h"
+
 #define BUFSIZE 256
 //=============================================================================
 void linearize(const cv::Mat& mat_in, double* arr_out, const size_t M, const size_t N)
@@ -35,25 +36,49 @@ int main()
 	engEvalString(ep, "clc, clear, close all;");
 
 	// Evaluate string in MATLAB environment to point to a specific folder - there is nothing in this directory currently
-	engEvalString(ep, "cd C:/Users/summer2016/Desktop/Cpp_to_MATLAB_webinar/OpenCV_matlab_eng/OpenCV_matlab_eng/matlab_dir");					// Change to active directory 
+	engEvalString(ep, "cd C:/Users/summer2016/Desktop/Cpp_to_MATLAB/matlab_engine/matlab_dir");					// Change to active directory 
 
-	// Read and display image:
-	cv::Mat img = cv::imread("test.bmp", CV_LOAD_IMAGE_GRAYSCALE);
-	cv::imshow("Display window", img); 
-	
+	// Read and display image:																																																																	
+	cv::Mat img = cv::imread("image1.png", CV_LOAD_IMAGE_GRAYSCALE);
+	cv::imshow("OpenCV", img);
+
 	// Convert the Mat object into a double array
 	const size_t M = img.rows;
 	const size_t N = img.cols;
 	double* arr_out = (double*)malloc(sizeof(double) * M * N);
 	linearize(img, arr_out, M, N);
 
-	// Pass image into MATLAB
+	// Pass image into MATLAB and evaluate it inside a .m script
 	mxArray *mx_Arr;
 	mx_Arr = mxCreateDoubleMatrix(M, N, mxREAL);
 	memcpy(mxGetPr(mx_Arr), arr_out, M * N * sizeof(double));
-	engPutVariable(ep, "mx_Arr_in_mat", mx_Arr);
-	engEvalString(ep, "figure, imshow(mx_Arr_in_mat, []);");
+	engPutVariable(ep, "img_from_OpenCV", mx_Arr);
+	engEvalString(ep, "figure, imshow(img_from_OpenCV, [],'Border','tight');");
+	engEvalString(ep, "[img_in_MATLAB, PSNR] = TestBench_moving_stats(img_from_OpenCV);");  // Call entire MATLAB scripts/functions and pass arguments
 
-	cv::waitKey(0);
+	/// Retrieve data from MATLAB to process in C code
+	//	Data marshalling
+	mxArray *PSNR;
+	//...
+
+	/// Operate on data retrieved from MATLAB
+	//...
+
+	/// Push C results to MATLAB workspace for
+	//	1. Visualization
+	//	2. Analysis
+	//	3. And Testing
+	//...
+
+	// Grab PSNR from workspace
+	PSNR = engGetVariable(ep, "PSNR");															// Pointer to MATLAB variable 
+	const double* I_psnr = static_cast<double*>(mxGetData(PSNR));		// Pointer in C variable
+	std::cout << "PSNR = " << *I_psnr << std::endl;
+
+	/// Close program and exit open windows
+	cv::waitKey(0); // Wait on key-press from user
+	engEvalString(ep, "close all;");
+	// De-Allocate memory
+	//...
 	return 0;
 }
