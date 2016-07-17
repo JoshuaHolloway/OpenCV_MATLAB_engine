@@ -35,3 +35,5 @@ ole32.dll
 
 It is relatively easy to extend this to perform more advanced linking of C++ and MATLAB as described here:
 http://www.mathworks.com/campaigns/portals/matlab-coder.html
+
+Note that the Image Watch plugin to Visual Studio is an especially convenient tool for visualizing your processed images directly inside VS: https://visualstudiogallery.msdn.microsoft.com/e682d542-7ef3-402c-b857-bbfba714f78d, http://docs.opencv.org/2.4/doc/tutorials/introduction/windows_visual_studio_image_watch/windows_visual_studio_image_watch.html
