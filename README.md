@@ -1,6 +1,4 @@
 # OpenCV_MATLAB_engine
-This program passes OpenCV Mat objects into MATLAB from Visual Studio for analysis.
-
 This is a minimal C++ program that passes OpenCV Mat object image data into MATLAB via the MATLAB engine.
 
 Environment used:
