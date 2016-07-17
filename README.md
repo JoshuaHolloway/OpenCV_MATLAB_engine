@@ -20,7 +20,8 @@ Configuration Properties -> Linker -> General ->Additional Library Directories:
 C:\Program Files\MATLAB\R2016a\extern\lib\win64\microsoft, 
 C:\opencv310\opencv\build\x64\vc14\lib
 
-Configuration Properties -> Linker -> General -> Use Library Dependency Inputs: YES, 
+Configuration Properties -> Linker -> General -> Use Library Dependency Inputs: YES
+
 Configuration Properties -> Linker -> Input -> Additional Dependencies: 
 opencv_world310d.lib, libmx.lib, libut.lib, libmat.lib, libeng.lib, libmwimfilter.lib
 
