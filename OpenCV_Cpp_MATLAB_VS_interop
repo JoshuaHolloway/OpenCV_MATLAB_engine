@@ -1,0 +1,59 @@
+// This is a program linking together OpenCV and MATLAB
+// Please see the program ML_Engine_Demo for the full program.
+// This version is minimal for only passing data into matlab
+// from an OpenCV Mat object
+//=============================================================================
+#include <opencv2\core\core.hpp>
+#include <opencv2\highgui\highgui.hpp>
+#include <stdlib.h>
+#include <stdio.h>
+#include <iostream>
+#include "engine.h"  // MATLAB Engine Header File required for building in Visual Studio 
+#include "mex.h"
+#define BUFSIZE 256
+//=============================================================================
+void linearize(const cv::Mat& mat_in, double* arr_out, const size_t M, const size_t N)
+{ // Swap from row-major to col-major
+	for (int row = 0; row < M; row++)
+		for (int col = 0; col < N; col++)
+			arr_out[col * M + row] = static_cast<double>(mat_in.at<unsigned char>(row, col));
+}
+//=============================================================================
+int main()
+{
+	Engine *ep;	// Pointer to an MATLAB Engine
+
+	/*
+	* Start the MATLAB engine
+	*	- MATLAB runs in the background
+	*	- Access to MATLAB command prompt
+	*	- Visibility to workspace variables
+	*/
+	ep = engOpen(NULL);
+
+	// Reset MATLAB Environment
+	engEvalString(ep, "clc, clear, close all;");
+
+	// Evaluate string in MATLAB environment to point to a specific folder - there is nothing in this directory currently
+	engEvalString(ep, "cd C:/Users/summer2016/Desktop/Cpp_to_MATLAB_webinar/OpenCV_matlab_eng/OpenCV_matlab_eng/matlab_dir");					// Change to active directory 
+
+	// Read and display image:
+	cv::Mat img = cv::imread("test.bmp", CV_LOAD_IMAGE_GRAYSCALE);
+	cv::imshow("Display window", img); 
+	
+	// Convert the Mat object into a double array
+	const size_t M = img.rows;
+	const size_t N = img.cols;
+	double* arr_out = (double*)malloc(sizeof(double) * M * N);
+	linearize(img, arr_out, M, N);
+
+	// Pass image into MATLAB
+	mxArray *mx_Arr;
+	mx_Arr = mxCreateDoubleMatrix(M, N, mxREAL);
+	memcpy(mxGetPr(mx_Arr), arr_out, M * N * sizeof(double));
+	engPutVariable(ep, "mx_Arr_in_mat", mx_Arr);
+	engEvalString(ep, "figure, imshow(mx_Arr_in_mat, []);");
+
+	cv::waitKey(0);
+	return 0;
+}
