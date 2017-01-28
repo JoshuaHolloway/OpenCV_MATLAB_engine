@@ -1,40 +1,40 @@
 # OpenCV_MATLAB_engine
 This is a minimal C++ program that passes OpenCV Mat object image data into MATLAB via the MATLAB engine.
------------------------------------------------------------------------------------------
+
 Environment used:
-Windows 7 Professional 64-bit, 
-Visual Studio 2015 Professional 64-bit, 
-MATLAB R2016a, 
-OpenCV 3.1.0
------------------------------------------------------------------------------------------
+Windows 10 64-bit, 
+Visual Studio 2015 Enterprise 64-bit, 
+MATLAB R2016b, 
+OpenCV 3.2.0
+
 The following property settings are machine specific. The general properties are described in the following two links:
 http://www.mathworks.com/help/matlab/matlab_external/compiling-engine-applications-in-an-ide.html, 
 http://docs.opencv.org/master/d6/d8a/tutorial_windows_visual_studio_Opencv.html#gsc.tab=0
------------------------------------------------------------------------------------------
+
 Configuration Properties -> C/C++ -> General ->Additional Include Directories:
 C:\Program Files\MATLAB\R2016b\extern\include
 C:\opencv\build\include
------------------------------------------------------------------------------------------
+
 Configuration Properties -> Linker -> General ->Additional Library Directories:
 C:\Program Files\MATLAB\R2016b\extern\lib\win64\microsoft
 C:\opencv\build\x64\vc14\lib
------------------------------------------------------------------------------------------
+
 Configuration Properties -> VC++ Directories -> Executable Directories:
 C:\Program Files\MATLAB\R2016b\bin\win64
------------------------------------------------------------------------------------------
+
 Configuration Properties -> VC++ Directories -> Include Directories:
 C:\Program Files\MATLAB\R2016b\extern\include
------------------------------------------------------------------------------------------
+
 Configuration Properties -> VC++ Directories -> Library Directories:
 C:\Program Files\MATLAB\R2016b\extern\lib\win64\microsoft
------------------------------------------------------------------------------------------
+
 Configuration Properties -> Linker -> Input -> Additional Dependencies:
 opencv_world320d.lib
 libmx.lib
 libeng.lib
 libmex.lib
 libmat.lib
------------------------------------------------------------------------------------------
+
 Added the following files into the directory where the .exe is generated:
 libmx.dll
 libut.dll
@@ -48,27 +48,27 @@ msvcp120.dll
 msvcp120d.dll
 msvcr120d.dll
 ole32.dll
------------------------------------------------------------------------------------------
+
 The below files were found in: C:\Program Files\MATLAB\R2016b\bin\win64
 libmx.dll
 libut.dll
 libeng.dll
 libmwi18n.dll
 libmwfl.dll
------------------------------------------------------------------------------------------
+
 The below files were found in: C:\Windows\System32
 kernel32.dll
 msvcp120.dll
 msvcp120d.dll
 msvcr120d.dll
 ole32.dll
------------------------------------------------------------------------------------------
+
 The below file was found at: C:\opencv\build\x64\vc14\bin
 opencv_world320d.dll
------------------------------------------------------------------------------------------
+
 The below file was found at: C:\opencv\build\x64\vc14\lib
 opencv_world320d.lib
------------------------------------------------------------------------------------------
+
 The following must also be set: 
 http://www.mathworks.com/help/matlab/matlab_external/building-and-running-engine-applications-on-windows-operating-systems.html
 Set Run-Time Library Path on Windows Systems
