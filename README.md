@@ -69,7 +69,7 @@ opencv_world320d.dll
 The below file was found at: C:\opencv\build\x64\vc14\lib
 opencv_world320d.lib
 
-The following must also be set: 
+The following must also be set:                                                            
 http://www.mathworks.com/help/matlab/matlab_external/building-and-running-engine-applications-on-windows-operating-systems.html
 
 At run time, tell the operating system where the API shared libraries reside by setting the Path environment variable. Set the value to the path returned by the following MATLAB command:
@@ -101,7 +101,8 @@ If you have multiple versions of MATLAB installed on your system, the version yo
 It is relatively easy to extend this to perform more advanced linking of C++ and MATLAB as described here:
 http://www.mathworks.com/campaigns/portals/matlab-coder.html
 
-Note that the Image Watch plugin to Visual Studio is an especially convenient tool for visualizing your processed images directly inside VS: https://visualstudiogallery.msdn.microsoft.com/e682d542-7ef3-402c-b857-bbfba714f78d, http://docs.opencv.org/2.4/doc/tutorials/introduction/windows_visual_studio_image_watch/windows_visual_studio_image_watch.html
+Note that the Image Watch plugin to Visual Studio is an especially convenient tool for visualizing your processed images directly inside VS: 
+https://visualstudiogallery.msdn.microsoft.com/e682d542-7ef3-402c-b857-bbfba714f78d; http://docs.opencv.org/2.4/doc/tutorials/introduction/windows_visual_studio_image_watch/windows_visual_studio_image_watch.html
 
 ======================================
 ======================================
