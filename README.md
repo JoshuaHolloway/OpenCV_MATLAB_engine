@@ -71,9 +71,8 @@ opencv_world320d.lib
 
 The following must also be set: 
 http://www.mathworks.com/help/matlab/matlab_external/building-and-running-engine-applications-on-windows-operating-systems.html
-Set Run-Time Library Path on Windows Systems
 
-At run time, tell the operating system where the API shared libraries reside by setting the Path environment variable. Set the value to the path returned by the following MATLAB® command:
+At run time, tell the operating system where the API shared libraries reside by setting the Path environment variable. Set the value to the path returned by the following MATLAB command:
 
 res = fullfile(matlabroot,'bin',computer('arch'))
 Change Path Each Time You Run the Application
@@ -87,7 +86,8 @@ To set the run-time library path permanently to res, modify the Path variable us
 
 To remove the run-time library path, follow the same instructions, deleting the path name from the variable.
 
-Windows 10
+Windows 10:
+
 Select Computer from the Start menu.
 Choose System properties from the context menu.
 Click Advanced system settings > Advanced tab.
