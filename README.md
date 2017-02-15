@@ -87,7 +87,7 @@ To set the run-time library path permanently to res, modify the Path variable us
 
 To remove the run-time library path, follow the same instructions, deleting the path name from the variable.
 
-Windows 7
+Windows 10
 Select Computer from the Start menu.
 Choose System properties from the context menu.
 Click Advanced system settings > Advanced tab.
@@ -95,12 +95,9 @@ Click Environment Variables.
 Under System variables, select Path and click Edit.
 Modify Path by inserting res; at the beginning of the Variable value: text field.
 Click Ok to close the dialog boxes, then close the Control Panel dialog box.
-Troubleshooting
+
 If you have multiple versions of MATLAB installed on your system, the version you use to build your engine applications must be the first listed in your system Path environment variable. Otherwise, MATLAB displays Can't start MATLAB engine.
-=======================================================================================
-=======================================================================================
-=======================================================================================
-=======================================================================================
+
 It is relatively easy to extend this to perform more advanced linking of C++ and MATLAB as described here:
 http://www.mathworks.com/campaigns/portals/matlab-coder.html
 
