@@ -8,12 +8,7 @@
 #include "engine.h"  // MATLAB Engine Header File required for building in Visual Studio 
 #include "mex.h"
 //=============================================================================
-void linearize(const cv::Mat& mat_in, double* arr_out, const size_t M, const size_t N)
-{ // Swap from row-major to col-major
-	for (int row = 0; row < M; row++)
-		for (int col = 0; col < N; col++)
-			arr_out[col * M + row] = static_cast<double>(mat_in.at<unsigned char>(row, col));
-}
+
 //=============================================================================
 class matlabClass
 {
@@ -38,6 +33,24 @@ public:
 	{
 		engEvalString(ep, str);
 	}
+
+	void linearize(const cv::Mat& mat_in, double* arr_out, const size_t M, const size_t N)
+	{ // Swap from row-major to col-major
+		for (int row = 0; row < M; row++)
+			for (int col = 0; col < N; col++)
+				arr_out[col * M + row] = static_cast<double>(mat_in.at<unsigned char>(row, col));
+	}
+
+	template <typename T>
+	T* transposeLin(const T* arrIn, const int M, const int N)
+	{
+		T* arrOut = (T*)malloc(sizeof(T) * M * N);
+		for (int i = 0; i < M; ++i)
+			for (int j = 0; j < N; ++j)
+				arrOut[i*N + j] = arrIn[j*N + i];
+		return arrOut;
+	}
+
 	void passImageIntoMatlab(const cv::Mat& img)
 	{
 		// Convert the Mat object into a double array
@@ -64,22 +77,36 @@ public:
 		command("matlabVal=42;");
 
 		// Grab value from workspace
-		mxArray *cppValmxArray;
-		cppValmxArray = engGetVariable(ep, "matlabVal");															// Pointer to MATLAB variable 
+		mxArray *cppValmxArray = engGetVariable(ep, "matlabVal");															// Pointer to MATLAB variable 
 		const double* cppValDblPtr = static_cast<double*>(mxGetData(cppValmxArray));	// Pointer to C variable
-		std::cout << "Value passed from MATLAB into C++ = " << *cppValDblPtr << std::endl;
+		std::cout << "Value passed from MATLAB into C++ = " << *cppValDblPtr << std::endl << std::endl;
 	}
 	void returnVectorFromMatlab()
 	{
 		// Create a row-vector in MATLAB
-		command("matlabVal=[1,2]");
+		command("matlabVal=[1,2];");
 
-		mxArray *cppValmxArray;
-		cppValmxArray = engGetVariable(ep, "matlabVal");															// Pointer to MATLAB variable 
+		mxArray *cppValmxArray = engGetVariable(ep, "matlabVal");															// Pointer to MATLAB variable 
 		const double* cppValDblPtr = static_cast<double*>(mxGetData(cppValmxArray));	// Pointer to C variable
-		std::cout << "Vector passed from MATLAB into C++ = " << cppValDblPtr[0] << " " << cppValDblPtr[1] << std::endl;
+		std::cout << "Vector passed from MATLAB into C++ = " << cppValDblPtr[0] << " " << cppValDblPtr[1] << std::endl << std::endl;
 	}
-	//void returnMatrixFromMatlab()
+	void returnMatrixFromMatlab()
+	{
+		// Careate a mat in MATLAB
+		const int numRows = 2, numCols = 2;
+		command("matlabVal=[1,2;3,4];");
+
+		mxArray *cppValmxArray = engGetVariable(ep, "matlabVal");															// Pointer to MATLAB variable 
+		const double* cppValDblPtr = static_cast<double*>(mxGetData(cppValmxArray));	// Pointer to C variable
+
+		const double* cppValDblPtrTran = transposeLin(cppValDblPtr, numRows, numCols);
+		std::cout << "Vector passed from MATLAB into C++ = " <<
+			cppValDblPtrTran[0] << " " << cppValDblPtrTran[1] << " " <<
+			cppValDblPtrTran[2] << " " << cppValDblPtrTran[3] << std::endl << std::endl;
+
+		//mxArray *cppValMxArray = engGetVariable(ep, "matlabVal");
+		//mxArray* output = mxCreateNumericMatrix(mxGetM(matlabVal), mxGetN())
+	}
 };
 //=============================================================================
 int main()
@@ -103,7 +130,7 @@ int main()
 
 	/// MATLAB -> C++
 	// Read audio data from MATLAB into C++ workspace
-	matlabObj.getAudioFromMatlab();
+	//matlabObj.getAudioFromMatlab();
 
 	/// MATLAB -> C++
 	// Demonstrate how to pass a value from MATLAB into C++ workspace
@@ -112,6 +139,10 @@ int main()
 	/// MATLAB -> C++
 	// Demonstrate how to pass a vector from MATLAB into C++ workspace
 	matlabObj.returnVectorFromMatlab();
+
+	/// MATLAB -> C++
+	// Demonstrate how to pass a mat from MATLAB into C++ workspace
+	matlabObj.returnMatrixFromMatlab();
 
 	/// Close program and exit open windows
 	cv::waitKey(0); // Wait on key-press from user
