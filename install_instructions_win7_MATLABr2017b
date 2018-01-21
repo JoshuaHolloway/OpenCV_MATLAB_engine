@@ -1,0 +1,80 @@
+Configuration Properties -> C/C++ -> General ->Additional Include Directories: 
+
+C:\Program Files\MATLAB\R2017b\extern\include
+C:\opencv34\build\include
+
+=======================
+
+Configuration Properties -> Linker -> General ->Additional Library Directories: 
+
+C:\Program Files\MATLAB\R2017b\extern\lib\win64\microsoft
+C:\opencv34\build\x64\vc14\lib
+
+=======================
+
+Configuration Properties -> VC++ Directories -> Executable Directories: 
+
+C:\Program Files\MATLAB\R2017b\bin\win64
+
+=======================
+
+Configuration Properties -> VC++ Directories -> Include Directories: 
+
+C:\Program Files\MATLAB\R2017b\extern\include
+
+=======================
+
+Configuration Properties -> VC++ Directories -> Library Directories: 
+
+C:\Program Files\MATLAB\R2017b\extern\lib\win64\microsoft
+
+=======================
+
+Configuration Properties -> Linker -> Input -> Additional Dependencies: 
+
+opencv_world340d.lib
+libmx.lib 
+libeng.lib 
+libmex.lib 
+libmat.lib
+
+=======================
+
+Added the following files into the directory where the .exe is generated: 
+
+libmx.dll 
+libut.dll 
+libeng.dll 
+libmwi18n.dll 
+libmwfl.dll 
+opencv_world340d.dll 
+kernel32.dll 
+msvcp120.dll 
+msvcp120d.dll 
+msvcr120d.dll 
+ole32.dll
+
+=======================
+
+The below files were found in: 
+C:\Program Files\MATLAB\R2017b\bin\win64
+
+libmx.dll 
+libut.dll 
+libeng.dll 
+libmwi18n.dll 
+libmwfl.dll
+
+=======================
+
+The below files were found in: 
+C:\Windows\System32 
+
+kernel32.dll 
+msvcp120.dll  
+msvcr120.dll 
+ole32.dll
+
+=====================================
+Finally, you need to set the env var for MATLAB. Append the following to the PATH environment variable:
+C:\Program Files\MATLAB\R2017b\bin\win64
