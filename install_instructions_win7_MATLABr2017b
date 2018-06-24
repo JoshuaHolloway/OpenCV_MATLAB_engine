@@ -1,7 +1,14 @@
+mwboost_filesystem-vc140-mt-1_56.dll
+
 Configuration Properties -> C/C++ -> General ->Additional Include Directories: 
 
 C:\Program Files\MATLAB\R2017b\extern\include
 C:\opencv34\build\include
+
+NEW:
+C:\Program Files\MATLAB\R2018a\extern\include
+C:\libs_josh\opencv\opencv341\opencv-3.4.1\build\install\include
+
 
 =======================
 
@@ -10,11 +17,18 @@ Configuration Properties -> Linker -> General ->Additional Library Directories:
 C:\Program Files\MATLAB\R2017b\extern\lib\win64\microsoft
 C:\opencv34\build\x64\vc14\lib
 
+NEW:
+C:\Program Files\MATLAB\R2018b\extern\lib\win64\microsoft
+C:\libs_josh\opencv\opencv341\opencv-3.4.1\build\install\x64\vc15\lib
+
 =======================
 
 Configuration Properties -> VC++ Directories -> Executable Directories: 
 
 C:\Program Files\MATLAB\R2017b\bin\win64
+
+NEW:
+C:\Program Files\MATLAB\R2018b\bin\win64
 
 =======================
 
@@ -22,11 +36,17 @@ Configuration Properties -> VC++ Directories -> Include Directories:
 
 C:\Program Files\MATLAB\R2017b\extern\include
 
+NEW:
+C:\Program Files\MATLAB\R2018b\extern\include
+
 =======================
 
 Configuration Properties -> VC++ Directories -> Library Directories: 
 
 C:\Program Files\MATLAB\R2017b\extern\lib\win64\microsoft
+
+NEW:
+C:\Program Files\MATLAB\R2018b\extern\lib\win64\microsoft
 
 =======================
 
@@ -47,7 +67,11 @@ libut.dll
 libeng.dll 
 libmwi18n.dll 
 libmwfl.dll 
-opencv_world340d.dll 
+opencv_core341d.lib
+opencv_highgui341d.lib
+opencv_imgproc341d.lib
+opencv_imgcodecs341d.lib
+opencv_videoio341d.lib
 kernel32.dll 
 msvcp120.dll 
 msvcp120d.dll 
@@ -58,6 +82,9 @@ ole32.dll
 
 The below files were found in: 
 C:\Program Files\MATLAB\R2017b\bin\win64
+
+NEW:
+C:\Program Files\MATLAB\R2018a\bin\win64
 
 libmx.dll 
 libut.dll 
@@ -78,3 +105,6 @@ ole32.dll
 =====================================
 Finally, you need to set the env var for MATLAB. Append the following to the PATH environment variable:
 C:\Program Files\MATLAB\R2017b\bin\win64
+
+NEW:
+C:\Program Files\MATLAB\R2018a\bin\win64
